@@ -1,0 +1,12 @@
+extend ./layout.jade
+
+<% if (useTemplate) { %>
+block  mainVars
+  - title = index.title
+  - author = 'author name'
+  - description = 'site description'
+  - keywords = 'keywords1, keywords2'
+  - page_class = 'top'
+<% } %>
+block content
+  h1= index.h1

@@ -1,0 +1,27 @@
+block mainVars
+
+doctype html
+html(lang="ja")
+  head
+    include layout/html-head
+    include layout/ogp
+
+    // Normalize.css or HTML5 Reset css
+    // bower:css
+    // endbower
+
+    link(rel='stylesheet', href='/css/style.css', media='all')<% if (includeModernizr) { %> 
+    script(src="../bower_components/modernizr/modernizr.js")<% } %>
+
+    include layout/ie-script
+
+  body(class=page_class)
+
+    block content
+    
+    // jQuery
+    // bower:js
+    script(src='../bower_components/jquery/dist/jquery.js')
+    // endbower
+
+    script(src='/js/script.js')
