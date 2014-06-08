@@ -8,16 +8,7 @@ var yosay = require('yosay');
 var chalk = require('chalk');
 var wiredep = require('wiredep');
 
-var BlogGenerator = yeoman.generators.Base.extend({
-  init: function () {
-    // this.pkg = require('../package.json');
-    // this.options['skip-install'] = true;
-
-    // this.on('end', function () {
-    //   if (!this.options['skip-install']) {
-    //   }
-    // });
-  },
+var StaticSiteGenerator = yeoman.generators.Base.extend({
 
   askFor: function () {
     var done = this.async();
@@ -26,11 +17,13 @@ var BlogGenerator = yeoman.generators.Base.extend({
     this.log(yosay('Welcome to the marvelous Blog generator!'));
 
     var prompts = [{
+      // Jade template
       type: 'confirm',
       name: 'useTemplate',
       message: 'Do you use Jade template?',
       default: true
     }, {
+      // CSS preprosesser
       type: 'list',
       name: 'csspreprocessor',
       message: 'Which do you use CSS preprosesser?',
@@ -40,6 +33,7 @@ var BlogGenerator = yeoman.generators.Base.extend({
         ],
       default: 'Sass'
     }, {
+      // JavaSript library
       type: 'checkbox',
       name: 'jslib',
       message: 'What do you use JavaSript library?',
@@ -51,6 +45,7 @@ var BlogGenerator = yeoman.generators.Base.extend({
         value: 'includeHTML5shiv'
       }]
     }, {
+      // CSS library
       type: 'checkbox',
       name: 'csslib',
       message: 'What do you use CSS library?',
@@ -62,6 +57,7 @@ var BlogGenerator = yeoman.generators.Base.extend({
         value: 'includeReset'
       }]
     }, {
+      // Cross browser test
       type: 'confirm',
       name: 'includeBrowserSync',
       message: 'Do you use browser-sync?',
@@ -118,8 +114,24 @@ var BlogGenerator = yeoman.generators.Base.extend({
     }
   },
 
+  sass: function () {
+    if (this.csspreprocessor === 'Sass') {
+      this.copy('main.scss', 'app/styles/main.scss');
+    }
+  },
+
+  stylus: function () {
+    if (this.csspreprocessor === 'Stylus') {
+      this.copy('main.styl', 'app/styles/main.styl');
+    }
+  },
+
+  coffee: function () {
+    this.copy('script.coffee', 'app/scripts/script.coffee');
+  },
+
   gulp: function () {
-    this.copy('gulpfile.coffee', 'gulpfile.coffee');
+    this.template('gulpfile.coffee', 'gulpfile.coffee');
   },
 
   projectfiles: function () {
@@ -147,4 +159,4 @@ var BlogGenerator = yeoman.generators.Base.extend({
 
 });
 
-module.exports = BlogGenerator;
+module.exports = StaticSiteGenerator;

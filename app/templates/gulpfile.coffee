@@ -12,7 +12,7 @@ config =
   DATA: './data'
 
 source =
-  jade: config.SOURCE + '/**/*.jade'
+  jade: config.SOURCE + '/**/index.jade'
   styles: config.SOURCE + '/styles/main.*'
   coffee: config.SOURCE + '/**/*.coffee'
   yaml: config.SOURCE + '/**/*.yml'
@@ -25,7 +25,7 @@ gulp.task 'styles', ->
       sourcemap: true
       style: 'expanded' <% } if (csspreprocessor === "Stylus") { %>
     .pipe $.stylus use: ['nib'] <% } %>
-    .pipe gulp.dest config.BUILD
+    .pipe gulp.dest config.BUILD + '/css'
 
 <% if (useTemplate) { %> gulp.task 'concat', ->
   gulp.src source.yaml

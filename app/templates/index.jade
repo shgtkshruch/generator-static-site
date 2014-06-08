@@ -9,4 +9,32 @@ block  mainVars
   - page_class = 'top'
 <% } %>
 block content
+  // normal comment
+
+  <% if (useTemplate) { %>
+  h1 Start Static Site Coding
+  <% } else { %>
   h1= index.h1
+  <% } %>
+  //
+    some lines comments
+    will output within markup
+  ul
+    - for (var x = 0; x < 3; x++)
+      li item
+
+  ul
+    each val, index in ['zero', 'one', 'two']
+      li= index + ': ' + val
+
+  //- will not output within markup
+  p= 'This code is' + ' <escaped>!'
+  p!= 'This code is <strong>not</strong> escaped!'
+
+  - var friends = 0
+  case friends
+    when 0
+    when 1
+      p you have very few
+    default
+      p you have #{friends} friends
