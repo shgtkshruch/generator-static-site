@@ -168,6 +168,10 @@ StaticSiteGenerator.prototype.grunt = function grunt() {
   }
 };
 
+StaticSiteGenerator.prototype.git = function git() {
+  this.copy('gitignore', '.gitignore');
+}
+
 StaticSiteGenerator.prototype.projectfiles = function projectfiles() {
   this.copy('editorconfig', '.editorconfig');
   this.copy('jshintrc', '.jshintrc');
