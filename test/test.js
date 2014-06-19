@@ -43,7 +43,8 @@ describe('static-site generator', function () {
       csspreprocessor: 'Sass',
       jslib: ['includeHTML5shiv'],
       csslib: ['includeNormalize'],
-      includeBrowserSync: false
+      includeBrowserSync: false,
+      includeGrunt: true
     });
 
     this.app.run({}, function () {

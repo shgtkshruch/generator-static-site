@@ -15,7 +15,10 @@
     "js-yaml": "*", <% } if (csspreprocessor === 'Sass') { %>
     "gulp-ruby-sass": "*", <% } if (csspreprocessor === 'Stylus') { %>
     "gulp-stylus": "*", <% } if (includeBrowserSync) { %>
-    "browser-sync": "*", <% } %>
+    "browser-sync": "*", <% } if (includeGrunt) { %>
+    "grunt": "*",
+    "grunt-csscomb": "*",
+    "grunt-prettify": "*", <% } %>
     "opn": "*",
     "connect": "*",
     "connect-livereload": "*",

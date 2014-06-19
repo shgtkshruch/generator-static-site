@@ -81,6 +81,12 @@ StaticSiteGenerator.prototype.askFor = function askFor() {
     name: 'includeBrowserSync',
     message: 'Do you use browser-sync?',
     default: false
+  }, {
+    // post css processor with Grunt
+    type: 'confirm',
+    name: 'includeGrunt',
+    message: 'Do you use post css pocessor?',
+    default: 'false'
   }];
 
   this.prompt(prompts, function (answers) {
@@ -98,6 +104,8 @@ StaticSiteGenerator.prototype.askFor = function askFor() {
     this.useTemplate = answers.useTemplate;
     this.csspreprocessor = answers.csspreprocessor;
     this.includeBrowserSync = answers.includeBrowserSync;
+    this.includeGrunt = answers.includeGrunt;
+
     this.includeModernizr = hasjs('includeModernizr');
     this.includeHTML5shiv = hasjs('includeHTML5shiv');
     this.includeNormalize = hascss('includeNormalize');
@@ -151,6 +159,13 @@ StaticSiteGenerator.prototype.coffee = function coffee() {
 
 StaticSiteGenerator.prototype.gulp = function gulp() {
   this.template('gulpfile.coffee', 'gulpfile.coffee');
+};
+
+StaticSiteGenerator.prototype.grunt = function grunt() {
+  if (this.includeGrunt) {
+    this.copy('gruntfile.coffee', 'gruntfile.coffee');
+    this.copy('csscomb.json', 'csscomb.json');
+  }
 };
 
 StaticSiteGenerator.prototype.projectfiles = function projectfiles() {
