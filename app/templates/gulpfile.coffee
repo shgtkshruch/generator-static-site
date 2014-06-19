@@ -12,19 +12,23 @@ config =
   DATA: './data'
 
 source =
-  jade: config.SOURCE + '/**/index.jade'
-  styles: config.SOURCE + '/styles/main.*'
+  jade: config.SOURCE + '/**/*.jade' <% if (csspreprocessor === 'Sass') { %> 
+  styles: config.SOURCE + '/styles/**/*.scss' <% } else { %>
+  styles: config.SOURCE + '/styles/**/*.styl' <% } %>
   coffee: config.SOURCE + '/**/*.coffee'
   yaml: config.SOURCE + '/**/*.yml'
-  images: config.SOURCE + '/**/*.{png, jpg, gif}'
 
 # task 
 gulp.task 'styles', ->
-  gulp.src source.styles <% if (csspreprocessor === 'Sass') { %>
+  gulp.src source.styles 
+    .pipe $.plumber() <% if (csspreprocessor === 'Sass') { %>
+    .pipe $.filter '**/main.scss' 
     .pipe $.rubySass
       sourcemap: true
-      style: 'expanded' <% } if (csspreprocessor === "Stylus") { %>
+      style: 'expanded' <% } else { %>
+    .pipe $.filter '**/main.styl' 
     .pipe $.stylus use: ['nib'] <% } %>
+    .pipe $.autoprefixer 'last 2 version', 'ie 8', 'ie 7'
     .pipe gulp.dest config.BUILD + '/css'
 
 <% if (useTemplate) { %> gulp.task 'concat', ->
@@ -38,6 +42,8 @@ gulp.task 'jade', <% if (useTemplate) {['concat']} %> -> <% if (useTemplate) { %
   contents = yaml.safeLoad fs.readFileSync config.DATA + '/all.yml', 'utf-8' <% } %>
 
   gulp.src source.jade
+    .pipe $.plumber()
+    .pipe $.filter '**/index.jade'
     .pipe $.jade
       pretty: true <% if (useTemplate) { %>
       data: contents <% } %>
@@ -45,15 +51,8 @@ gulp.task 'jade', <% if (useTemplate) {['concat']} %> -> <% if (useTemplate) { %
 
 gulp.task 'coffee', ->
   gulp.src source.coffee
+    .pipe $.plumber()
     .pipe $.coffee()
-    .pipe gulp.dest config.BUILD
-
-gulp.task 'images', ->
-  gulp.src source.images
-    .pipe $.imagemin
-      optimizationLevel: 3
-      progressive: true
-      interlaced: true
     .pipe gulp.dest config.BUILD
 
 <% if (includeBrowserSync) { %> gulp.task 'browser-sync', ->
@@ -92,7 +91,6 @@ gulp.task 'watch', ['connect', 'server'], ->
     config.BUILD + '/**/*.html'
     config.BUILD + '/**/*.css'
     config.BUILD + '/**/*.js'
-    config.BUILD + '/**/*.{png, jpg, gif}'
   ]).on 'change', (file) ->
       server.changed file.path
     
@@ -100,4 +98,3 @@ gulp.task 'watch', ['connect', 'server'], ->
   gulp.watch source.yaml, ['concat'] <% } %>
   gulp.watch source.styles, ['styles']
   gulp.watch source.coffee, ['coffee']
-  gulp.watch source.images, ['images']

@@ -24,7 +24,9 @@
     "connect-livereload": "*",
     "gulp-livereload": "*",
     "gulp-coffee": "*",
-    "gulp-imagemin": "*",
+    "gulp-plumber": "*",
+    "gulp-filter": "*",
+    "gulp-autoprefixer": "*",
     "gulp-load-plugins": "*",
     "coffee-script": "*"
   }
