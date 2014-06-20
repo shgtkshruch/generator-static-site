@@ -55,6 +55,13 @@ gulp.task 'coffee', ->
     .pipe $.coffee()
     .pipe gulp.dest config.BUILD
 
+gulp.task 'useref', ->
+  gulp.src config.BUILD + '**/*.html'
+    .pipe $.useref.assets()
+    .pipe $.useref.restore()
+    .pipe $.useref()
+    .pipe gulp.dest config.BUILD
+
 <% if (includeBrowserSync) { %> gulp.task 'browser-sync', ->
   browserSync = require 'browser-sync'
   browserSync.init ['./build/**/*.{html, css, js}'],
@@ -98,3 +105,6 @@ gulp.task 'watch', ['connect', 'server'], ->
   gulp.watch source.yaml, ['concat'] <% } %>
   gulp.watch source.styles, ['styles']
   gulp.watch source.coffee, ['coffee']
+
+gulp.task 'build', ->
+  gulp.start 'useref'

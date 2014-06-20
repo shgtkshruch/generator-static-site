@@ -6,12 +6,19 @@ html(lang="ja")
     include layout/html-head
     include layout/ogp
 
-    // Normalize.css or HTML5 Reset css
+    // build:css styles/vendor.css
     // bower:css
     // endbower
+    // endbuild
 
-    link(rel='stylesheet', href='./css/main.css', media='all')<% if (includeModernizr) { %> 
-    script(src="../bower_components/modernizr/modernizr.js")<% } %>
+    // build:css styles/main.css
+    link(rel='stylesheet', href='styles/main.css', media='all')
+    // endbuild
+    <% if (includeModernizr) { %>
+    // build:js scripts/vendor/modernizr.js
+    script(src="../bower_components/modernizr/modernizr.js")
+    // endbuild
+    <% } %>
 
     include layout/ie-script
 
@@ -19,9 +26,10 @@ html(lang="ja")
 
     block content
     
-    // jQuery
+    // build:js scripts/vendor.js
     // bower:js
     script(src='../bower_components/jquery/dist/jquery.js')
     // endbower
+    // endbuild
 
-    script(src='/js/script.js')
+    script(src='js/script.js')
