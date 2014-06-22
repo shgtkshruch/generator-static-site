@@ -29,7 +29,7 @@ gulp.task 'styles', ->
     .pipe $.filter '**/main.styl' 
     .pipe $.stylus use: ['nib'] <% } %>
     .pipe $.autoprefixer 'last 2 version', 'ie 8', 'ie 7'
-    .pipe gulp.dest config.BUILD + '/css'
+    .pipe gulp.dest config.BUILD
 
 <% if (useTemplate) { %> gulp.task 'concat', ->
   gulp.src source.yaml
@@ -91,6 +91,13 @@ gulp.task 'server', ['connect', 'jade'], ->
   opn = require 'opn'
   opn 'http://localhost:' + config.SERVERPORT
 
+gulp.task 'wiredep', ->
+  wiredep = require('wiredep').stream
+  gulp.src config.SOURCE + '/layout.jade'
+    .pipe wiredep
+      directory: 'bower_components'
+    .pipe gulp.dest config.SOURCE
+
 gulp.task 'watch', ['connect', 'server'], ->
   server = $.livereload()
 
@@ -105,6 +112,7 @@ gulp.task 'watch', ['connect', 'server'], ->
   gulp.watch source.yaml, ['concat'] <% } %>
   gulp.watch source.styles, ['styles']
   gulp.watch source.coffee, ['coffee']
+  gulp.watch 'bower.json', ['wiredep']
 
 gulp.task 'build', ->
   gulp.start 'useref'
