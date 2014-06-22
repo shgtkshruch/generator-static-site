@@ -5,7 +5,8 @@
     "modernizr": "~2.8.2",<% } if (includeHTML5shiv) { %>
     "html5shiv": "~3.7.2",<% } if (includeNormalize) { %>
     "normalize-css": "3.0.1",<% } if (includeReset) { %>
-    "html5reset-css": "https://html5resetcss.googlecode.com/files/html5reset-1.6.1.css",<% } %>
+    "html5reset-css": "https://html5resetcss.googlecode.com/files/html5reset-1.6.1.css",<% } if (csspreprocessor === 'Sass') { %>
+    "sass": "git@github.com:shgtkshruch/sass.git",<% } %>
     "jquery": "1.11.1"
   }
 }
