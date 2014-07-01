@@ -25,6 +25,7 @@
     "gulp-livereload": "*",
     "gulp-coffee": "*",
     "gulp-plumber": "*",
+    "gulp-changed": "*",
     "gulp-filter": "*",
     "gulp-useref": "*",
     "gulp-autoprefixer": "*",

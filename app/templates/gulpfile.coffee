@@ -52,6 +52,8 @@ gulp.task 'jade', <% if (useTemplate) {['concat']} %> -> <% if (useTemplate) { %
 gulp.task 'coffee', ->
   gulp.src source.coffee
     .pipe $.plumber()
+    .pipe $.changed config.BUILD,
+      extension: '.js'
     .pipe $.coffee()
     .pipe gulp.dest config.BUILD
 
