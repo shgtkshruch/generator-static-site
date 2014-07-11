@@ -28,6 +28,7 @@
     "gulp-changed": "*",
     "gulp-filter": "*",
     "gulp-useref": "*",
+    "gulp-clean": "*",
     "gulp-autoprefixer": "*",
     "gulp-load-plugins": "*",
     "wiredep": "*",

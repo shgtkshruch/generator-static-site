@@ -116,5 +116,10 @@ gulp.task 'watch', ['connect', 'server'], ->
   gulp.watch source.coffee, ['coffee']
   gulp.watch 'bower.json', ['wiredep']
 
+gulp.task 'clean', ->
+  gulp.src config.BUILD + '/**/*.{js,css,map}'
+    .pipe $.filter ['!**/main.css', '!**/vendor.css', '!**/main.js', '!**/vendor.js']
+    .pipe $.clean()
+
 gulp.task 'build', ->
   gulp.start 'useref'
