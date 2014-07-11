@@ -3,6 +3,7 @@
 # require
 gulp        = require 'gulp'
 $           = require('gulp-load-plugins')()
+runSequence = require 'run-sequence'
 
 # confing
 config =
@@ -57,13 +58,6 @@ gulp.task 'coffee', ->
     .pipe $.coffee()
     .pipe gulp.dest config.BUILD
 
-gulp.task 'useref', ->
-  gulp.src config.BUILD + '**/*.html'
-    .pipe $.useref.assets()
-    .pipe $.useref.restore()
-    .pipe $.useref()
-    .pipe gulp.dest config.BUILD
-
 <% if (includeBrowserSync) { %> gulp.task 'browser-sync', ->
   browserSync = require 'browser-sync'
   browserSync.init ['./build/**/*.{html, css, js}'],
@@ -116,10 +110,17 @@ gulp.task 'watch', ['connect', 'server'], ->
   gulp.watch source.coffee, ['coffee']
   gulp.watch 'bower.json', ['wiredep']
 
+gulp.task 'useref', ->
+  gulp.src config.BUILD + '**/*.html'
+    .pipe $.useref.assets()
+    .pipe $.useref.restore()
+    .pipe $.useref()
+    .pipe gulp.dest config.BUILD
+
 gulp.task 'clean', ->
   gulp.src config.BUILD + '/**/*.{js,css,map}'
     .pipe $.filter ['!**/main.css', '!**/vendor.css', '!**/main.js', '!**/vendor.js']
     .pipe $.clean()
 
-gulp.task 'build', ->
-  gulp.start 'useref'
+gulp.task 'build', (cb) ->
+  runSequence ['jade', 'styles', 'coffee'], 'useref', 'clean', cb

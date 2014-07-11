@@ -32,6 +32,7 @@
     "gulp-autoprefixer": "*",
     "gulp-load-plugins": "*",
     "wiredep": "*",
+    "run-sequence": "*",
     "coffee-script": "*"
   }
 }
