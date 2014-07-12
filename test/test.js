@@ -35,6 +35,7 @@ describe('static-site generator', function () {
       '.editorconfig',
       'bower.json',
       'gulpfile.coffee',
+      'Gruntfile.coffee',
       'package.json'
     ];
 

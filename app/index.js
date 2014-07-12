@@ -163,7 +163,7 @@ StaticSiteGenerator.prototype.gulp = function gulp() {
 
 StaticSiteGenerator.prototype.grunt = function grunt() {
   if (this.includeGrunt) {
-    this.copy('gruntfile.coffee', 'gruntfile.coffee');
+    this.copy('Gruntfile.coffee', 'Gruntfile.coffee');
     this.copy('csscomb.json', 'csscomb.json');
   }
 };

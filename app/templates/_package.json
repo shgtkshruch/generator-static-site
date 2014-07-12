@@ -17,6 +17,7 @@
     "gulp-stylus": "*", <% } if (includeBrowserSync) { %>
     "browser-sync": "*", <% } if (includeGrunt) { %>
     "grunt": "*",
+    "gulp-grunt": "*",
     "grunt-csscomb": "*",
     "grunt-prettify": "*", <% } %>
     "opn": "*",
@@ -30,6 +31,7 @@
     "gulp-filter": "*",
     "gulp-uglify": "*",
     "gulp-minify-css": "*",
+    "gulp-minify-html": "*",
     "gulp-useref": "*",
     "gulp-clean": "*",
     "gulp-autoprefixer": "*",

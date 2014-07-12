@@ -123,10 +123,14 @@ gulp.task 'clean', ->
     .pipe $.clean()
 
 gulp.task 'min', ->
+  htmlFilter = $.filter '**/*.html'
   cssFilter = $.filter '**/*.css'
   jsFilter = $.filter '**/*.js'
 
-  gulp.src config.BUILD + '/**/*.{css,js}'
+  gulp.src config.BUILD + '/**/*.{html,css,js}'
+    .pipe htmlFilter
+    .pipe $.minifyHtml()
+    .pipe htmlFilter.restore()
     .pipe cssFilter
     .pipe $.minifyCss()
     .pipe cssFilter.restore()
@@ -135,6 +139,19 @@ gulp.task 'min', ->
     .pipe jsFilter.restore()
     .pipe gulp.dest config.BUILD
 
+runSequence = require 'run-sequence'
+gulp.task 'prebuild', (cb) ->
+  runSequence ['jade', 'styles', 'coffee'], 'useref', 'clean', cb
+
+<% if (includeGrunt) { %>
+gulp.task 'grunt', ->
+  require('gulp-grunt')(gulp)
+  gulp.run 'grunt-prettify'
+  gulp.run 'grunt-csscomb'
+
 gulp.task 'build', (cb) ->
-  runSequence = require 'run-sequence'
-  runSequence ['jade', 'styles', 'coffee'], 'useref', 'clean', 'min', cb
+  runSequence 'prebuild', 'grunt', cb
+<% } %>
+
+gulp.task 'production', (cb) ->
+  runSequence 'prebuild', 'min', cb
