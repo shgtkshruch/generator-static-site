@@ -118,9 +118,9 @@ gulp.task 'useref', ->
     .pipe gulp.dest config.BUILD
 
 gulp.task 'clean', ->
-  gulp.src config.BUILD + '/**/*.{js,css,map}'
-    .pipe $.filter ['!**/main.css', '!**/vendor.css', '!**/main.js', '!**/vendor.js']
-    .pipe $.clean()
+  gulp.src config.BUILD + '/**/*.{js,css,map}', {read: false}
+    .pipe $.filter ['!**/{main,vendor}.{js,css}']
+    .pipe $.rimraf()
 
 gulp.task 'min', ->
   htmlFilter = $.filter '**/*.html'

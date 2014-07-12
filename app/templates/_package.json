@@ -33,7 +33,7 @@
     "gulp-minify-css": "*",
     "gulp-minify-html": "*",
     "gulp-useref": "*",
-    "gulp-clean": "*",
+    "gulp-rimraf": "*",
     "gulp-autoprefixer": "*",
     "gulp-load-plugins": "*",
     "wiredep": "*",
