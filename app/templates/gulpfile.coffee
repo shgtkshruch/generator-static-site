@@ -68,14 +68,15 @@ gulp.task 's', ['browser-sync'] <% } %>
 
 gulp.task 'connect', ->
   connect = require 'connect'
+  serveStatic = require 'serve-static'
   lr = require 'connect-livereload'
   app = connect()
     .use lr
       port: 35729
-    .use connect.static config.BUILD
+    .use searveStatic config.BUILD
     # paths to bower_components should be relative to the current file
     # e.g. in app/index.html you should use ../bower_components
-    .use '/bower_components', connect.static 'bower_components'
+    .use '/bower_components', searveStatic 'bower_components'
 
   http = require 'http'
   http.createServer app
