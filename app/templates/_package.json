@@ -28,6 +28,8 @@
     "gulp-plumber": "*",
     "gulp-changed": "*",
     "gulp-filter": "*",
+    "gulp-uglify": "*",
+    "gulp-minify-css": "*",
     "gulp-useref": "*",
     "gulp-clean": "*",
     "gulp-autoprefixer": "*",

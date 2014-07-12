@@ -3,7 +3,6 @@
 # require
 gulp        = require 'gulp'
 $           = require('gulp-load-plugins')()
-runSequence = require 'run-sequence'
 
 # confing
 config =
@@ -123,5 +122,19 @@ gulp.task 'clean', ->
     .pipe $.filter ['!**/main.css', '!**/vendor.css', '!**/main.js', '!**/vendor.js']
     .pipe $.clean()
 
+gulp.task 'min', ->
+  cssFilter = $.filter '**/*.css'
+  jsFilter = $.filter '**/*.js'
+
+  gulp.src config.BUILD + '/**/*.{css,js}'
+    .pipe cssFilter
+    .pipe $.minifyCss()
+    .pipe cssFilter.restore()
+    .pipe jsFilter
+    .pipe $.uglify()
+    .pipe jsFilter.restore()
+    .pipe gulp.dest config.BUILD
+
 gulp.task 'build', (cb) ->
-  runSequence ['jade', 'styles', 'coffee'], 'useref', 'clean', cb
+  runSequence = require 'run-sequence'
+  runSequence ['jade', 'styles', 'coffee'], 'useref', 'clean', 'min', cb
