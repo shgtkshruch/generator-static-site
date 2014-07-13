@@ -36,6 +36,7 @@
     "gulp-rimraf": "*",
     "gulp-autoprefixer": "*",
     "gulp-load-plugins": "*",
+    "uglify-save-license": "*",
     "wiredep": "*",
     "run-sequence": "*",
     "coffee-script": "*"

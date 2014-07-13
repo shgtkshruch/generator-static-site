@@ -123,11 +123,13 @@ gulp.task 'clean', ->
     .pipe $.rimraf()
 
 gulp.task 'min', ->
+  saveLisense = require 'uglify-save-license'
+
   htmlFilter = $.filter '**/*.html'
   cssFilter = $.filter '**/*.css'
   jsFilter = $.filter '**/*.js'
 
-  gulp.src config.BUILD + '/**/*.{html,css,js}'
+  gulp.src config.BUILD + '/**/vendor.{html,css,js}'
     .pipe htmlFilter
     .pipe $.minifyHtml()
     .pipe htmlFilter.restore()
@@ -135,7 +137,7 @@ gulp.task 'min', ->
     .pipe $.minifyCss()
     .pipe cssFilter.restore()
     .pipe jsFilter
-    .pipe $.uglify()
+    .pipe $.uglify preserveComments: saveLisense
     .pipe jsFilter.restore()
     .pipe gulp.dest config.BUILD
 
