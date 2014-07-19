@@ -1,5 +1,12 @@
-<!--[if lt IE 9]><% if (includeHTML5shiv) { %> 
-script(src="../bower_components/html5shiv/dist/html5shiv.js")<% } %>
-<script src="//ie7-js.googlecode.com/svn/version/2.1(beta4)/IE9.js"></script>
-<script src="//css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
-<![endif]-->
+mixin ie(condition)
+  | 
+  <!--[!{condition}]>
+  block
+  | 
+  <![endif]-->
+
++ie('if lt IE 9')
+  // build:js scripts/ie.js <% if (includeHTML5shiv) { %> 
+  script(src="../bower_components/html5shiv/dist/html5shiv.min.js")<% } if (includeRespond) { %>
+  script(src="../bower_components/dest/respond.min.js")<% } %>
+  // endbuild

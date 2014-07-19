@@ -62,6 +62,9 @@ StaticSiteGenerator.prototype.askFor = function askFor() {
     }, {
       name: 'HTML5shiv',
       value: 'includeHTML5shiv'
+    }, {
+      name: 'Respond.js',
+      value: 'includeRespond'
     }]
   }, {
     // CSS library
@@ -108,6 +111,7 @@ StaticSiteGenerator.prototype.askFor = function askFor() {
 
     this.includeModernizr = hasjs('includeModernizr');
     this.includeHTML5shiv = hasjs('includeHTML5shiv');
+    this.includeRespond = hasjs('includeRespond');
     this.includeNormalize = hascss('includeNormalize');
     this.includeReset = hascss('includeReset');
 
@@ -186,7 +190,7 @@ StaticSiteGenerator.prototype.install = function install() {
       wiredep({
         bowerJson: bowerJson,
         directory: 'bower_components',
-        exclude: ['modernizr.js', 'html5shiv.js'],
+        exclude: ['modernizr.js', 'html5shiv.js', 'respond.js'],
         src: 'app/layout.jade'
       });
       done();

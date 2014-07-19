@@ -33,16 +33,19 @@ describe('static-site generator', function () {
     var expected = [
       // add files you expect to exist here.
       '.editorconfig',
+      '.jshintrc',
+      '.gitignore',
       'bower.json',
       'gulpfile.coffee',
       'Gruntfile.coffee',
-      'package.json'
+      'package.json',
+      'csscomb.json'
     ];
 
     helpers.mockPrompt(this.app, {
       useTemplate: false,
       csspreprocessor: 'Sass',
-      jslib: ['includeHTML5shiv'],
+      jslib: ['includeHTML5shiv', 'includeRespond'],
       csslib: ['includeNormalize'],
       includeBrowserSync: false,
       includeGrunt: true

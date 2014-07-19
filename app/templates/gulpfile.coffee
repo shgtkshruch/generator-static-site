@@ -119,7 +119,7 @@ gulp.task 'useref', ->
 
 gulp.task 'clean', ->
   gulp.src config.BUILD + '/**/*.{js,css,map}', {read: false}
-    .pipe $.filter ['!**/{main,vendor}.{js,css}']
+    .pipe $.filter ['!**/{main,vendor,ie}.{js,css}']
     .pipe $.rimraf()
 
 gulp.task 'min', ->
