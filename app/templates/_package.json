@@ -18,6 +18,7 @@
     "browser-sync": "*", <% } if (includeGrunt) { %>
     "grunt": "*",
     "gulp-grunt": "*",
+    "grunt-ftp-deploy": "*",
     "grunt-csscomb": "*",
     "grunt-prettify": "*", <% } %>
     "opn": "*",

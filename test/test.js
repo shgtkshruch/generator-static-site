@@ -35,6 +35,7 @@ describe('static-site generator', function () {
       '.editorconfig',
       '.jshintrc',
       '.gitignore',
+      '.ftppass',
       'bower.json',
       'gulpfile.coffee',
       'Gruntfile.coffee',

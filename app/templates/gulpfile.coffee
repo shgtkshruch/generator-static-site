@@ -143,7 +143,7 @@ gulp.task 'min', ->
   cssFilter = $.filter '**/*.css'
   jsFilter = $.filter '**/*.js'
 
-  gulp.src config.BUILD + '/**/vendor.{html,css,js}'
+  gulp.src config.BUILD + '/**/*.{html,css,js}'
     .pipe htmlFilter
     .pipe $.minifyHtml()
     .pipe htmlFilter.restore()
@@ -160,13 +160,19 @@ gulp.task 'prebuild', (cb) ->
   runSequence 'sprite', ['jade', 'styles', 'coffee'], 'useref', 'clean', cb
 
 <% if (includeGrunt) { %>
-gulp.task 'grunt', ->
-  require('gulp-grunt')(gulp)
+require('gulp-grunt')(gulp)
+gulp.task 'grunt-build', ->
   gulp.run 'grunt-prettify'
   gulp.run 'grunt-csscomb'
 
+gulp.task 'grunt-deploy', ->
+  gulp.run 'grunt-ftp-deploy'
+
 gulp.task 'build', (cb) ->
-  runSequence 'prebuild', 'grunt', cb
+  runSequence 'prebuild', 'grunt-build', cb
+
+gulp.task 'deploy', (cb) ->
+  runSequence 'prebuild', 'min', 'grunt-deploy', cb
 <% } %>
 
 gulp.task 'production', (cb) ->

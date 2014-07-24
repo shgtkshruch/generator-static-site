@@ -28,7 +28,16 @@ module.exports = (grunt) ->
         src: ['**/*.css']
         dest: 'build'
 
+    'ftp-deploy':
+      build: 
+        auth: 
+          host: 'server.com'
+          port: 21
+          authKey: 'key1'
+        src: 'build'
+        dest: '/'
+        exclusions: ['**/.DS_Store']
+
   grunt.loadNpmTasks 'grunt-prettify'
   grunt.loadNpmTasks 'grunt-csscomb'
-
-  grunt.registerTask 'default', ['prettify', 'csscomb']
+  grunt.loadNpmTasks 'grunt-ftp-deploy'
