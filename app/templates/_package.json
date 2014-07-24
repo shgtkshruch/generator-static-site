@@ -35,6 +35,7 @@
     "gulp-useref": "*",
     "gulp-rimraf": "*",
     "gulp-autoprefixer": "*",
+    "gulp.spritesmith": "*",
     "gulp-load-plugins": "*",
     "uglify-save-license": "*",
     "wiredep": "*",

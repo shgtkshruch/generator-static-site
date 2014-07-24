@@ -15,8 +15,10 @@ source =
   jade: config.SOURCE + '/**/*.jade' <% if (csspreprocessor === 'Sass') { %> 
   styles: config.SOURCE + '/styles/**/*.scss' <% } else { %>
   styles: config.SOURCE + '/styles/**/*.styl' <% } %>
+  sprite: config.SOURCE + '/images/**/*.{jpg,png,gif}'
   coffee: config.SOURCE + '/**/*.coffee'
   yaml: config.SOURCE + '/**/*.yml'
+
 
 # task 
 gulp.task 'styles', ->
@@ -30,6 +32,18 @@ gulp.task 'styles', ->
     .pipe $.stylus use: ['nib'] <% } %>
     .pipe $.autoprefixer 'last 2 version', 'ie 8', 'ie 7'
     .pipe gulp.dest config.BUILD
+
+gulp.task 'sprite', ->
+  spritesmith = require 'gulp.spritesmith'
+  spriteData = gulp.src source.sprite
+    .pipe spritesmith
+      imgName: 'sprite.png'
+      cssName: '_sprite.scss'
+      imgPath: '../images/sprite.png'
+      cssFormat: 'scss'
+
+  spriteData.img.pipe gulp.dest config.BUILD + '/images'
+  spriteData.css.pipe gulp.dest config.SOURCE + '/styles'
 
 <% if (useTemplate) { %> gulp.task 'concat', ->
   gulp.src source.yaml
@@ -143,7 +157,7 @@ gulp.task 'min', ->
 
 runSequence = require 'run-sequence'
 gulp.task 'prebuild', (cb) ->
-  runSequence ['jade', 'styles', 'coffee'], 'useref', 'clean', cb
+  runSequence 'sprite', ['jade', 'styles', 'coffee'], 'useref', 'clean', cb
 
 <% if (includeGrunt) { %>
 gulp.task 'grunt', ->

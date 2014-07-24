@@ -124,6 +124,7 @@ StaticSiteGenerator.prototype.app = function app() {
   this.mkdir('app/styles');
   this.mkdir('app/scripts');
   this.mkdir('app/images');
+  this.mkdir('app/sprite');
 
   this.copy('_package.json', 'package.json');
   this.copy('_bower.json', 'bower.json');
